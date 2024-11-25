@@ -1,6 +1,7 @@
 package main
 
 import (
+	"github.com/meiti-x/go-transactional-msg/api"
 	"log"
 	"net"
 
@@ -16,8 +17,9 @@ func main() {
 
 	grpcServer := grpc.NewServer()
 
-	pb.RegisterFileServiceServer(grpcServer, api.NewFsGRPCApi("./files"))
+	pb.RegisterFSServer(grpcServer, api.NewFsGRPCApi("./files"))
 
 	log.Println("Starting gRPC Server on port 8080")
-	grpcServer.Serve(l)
+
+	log.Fatal(grpcServer.Serve(l))
 }
